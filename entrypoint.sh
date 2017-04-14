@@ -4,7 +4,8 @@ mkdir -p $OPENGROK_INSTANCE_BASE/data
 mkdir -p $OPENGROK_INSTANCE_BASE/plugins
 mkdir -p $OPENGROK_INSTANCE_BASE/etc
 
-# $OPENGROK_INSTANCE_BASE/bin/OpenGrok index $SRC_ROOT
+# Do the initial index
+sleep 10 && $OPENGROK_INSTANCE_BASE/bin/OpenGrok index $SRC_ROOT &
 
 for directory in $(find $SRC_ROOT -type d -maxdepth $REINDEX_MAX_DEPTH | grep -v $REINDEX_FILTER); do
   echo "incrond: watching $directory"
@@ -15,5 +16,3 @@ done
 incrond -n &
 
 /bin/ash -c "$@"
-
-

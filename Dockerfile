@@ -12,7 +12,7 @@ ENV SRC_ROOT /src
 ENV OPENGROK_ENABLE_PROJECTS true
 ENV REINDEX_MAX_DEPTH 2
 ENV REINDEX_FILTER git\|tmp\|temp\|.*
-ENV IGNORE_PATTERNS "-i *.jar -i *.so -i *.zip -i *.gz -i *.tar -i d:.git"
+ENV IGNORE_PATTERNS "-i *.jar -i *.so -i *.zip -i *.gz -i *.tar -i d:.git -i d:vendors -i d:log -i d:node_modules"
 
 RUN apk update && apk add inotify-tools curl ctags git
 
@@ -32,5 +32,7 @@ RUN cd $OPENGROK_INSTANCE_BASE \
 COPY entrypoint.sh /entrypoint
 
 ENTRYPOINT ["/entrypoint"]
+
+VOLUME /src
 
 CMD ["catalina.sh run"]
