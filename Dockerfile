@@ -7,7 +7,7 @@ ENV OPENGROK_WEBAPP_CONTEXT /
 ENV OPENGROK_VERBOSE true
 ENV OPENGROK_INSTANCE_BASE /var/opengrok
 ENV OPENGROK_NON_INTERACTIVE true
-ENV SRC_ROOT /src
+ENV SRC_ROOT /var/opengrok/src
 # ENV OPENGROK_WEBAPP_CONTEXT /source
 ENV OPENGROK_ENABLE_PROJECTS true
 ENV REINDEX_MAX_DEPTH 2
@@ -33,6 +33,8 @@ COPY entrypoint.sh /entrypoint
 
 ENTRYPOINT ["/entrypoint"]
 
-VOLUME /src
+VOLUME /var/opengrok/src
+
+VOLUME /var/opengrok/data
 
 CMD ["catalina.sh run"]
